@@ -145,7 +145,7 @@ public class UsersController {
 
         Optional<UserAccount> userAccountOptional = userAccountRepository.findByEmail(email);
         Optional<AgentAccount> agentAccountOptional = agentAccountRepository.findByEmail(email);
-
+        Optional<Administrator> administrator = administratorRepository.findByEmail(email);
         if (userAccountOptional.isPresent()) {
             UserAccount userAccount = userAccountOptional.get();
 
@@ -155,6 +155,7 @@ public class UsersController {
             userAccountRepository.save(userAccount);
 
             return ResponseEntity.ok().body("{\"message\": \"Password changed successfully\"}");
+
         } else if (agentAccountOptional.isPresent()) {
             AgentAccount agentAccount = agentAccountOptional.get();
 

@@ -100,7 +100,7 @@ public class CompanyController {
         String hashedPassword = passwordEncoder.encode(newPassword);
         administrator.setPassword(hashedPassword);
         administratorRepository.save(administrator);
-
+        authService.setContentForUpdatePasswordNotififaction(administratorOptional .get());
         return ResponseEntity.ok().body("{\"message\": \"Password changed successfully\"}");
     }
 
@@ -151,6 +151,7 @@ public class CompanyController {
                                                 @RequestParam("position") String position,
                                                 @RequestParam(value = "file", required = false) MultipartFile file) {
         try {
+            Optional<Administrator> administratorOptional = administratorRepository.findByEmail(email);
             Blob profileImageBlob = null; // Initialize as null
 
             if (file != null && !file.isEmpty()) {
@@ -161,7 +162,7 @@ public class CompanyController {
 
             // Call the service method to update the profile
             ResponseEntity<Map<String, String>> responseEntity = companyService.updateProfile(fullName, lastName, email, position,profileImageBlob);
-
+             authService.setContentForUpdateProfileNotififaction(administratorOptional.get());
             // Return the response entity from the service method
             return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
 

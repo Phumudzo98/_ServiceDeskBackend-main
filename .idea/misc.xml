@@ -6,6 +6,15 @@
       <list>
         <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/api-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/chat-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/users-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/ticket-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/account-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/billing-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/package-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/discovery-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/subscribe-service/pom.xml" />
+        <option value="$PROJECT_DIR$/_ServiceDeskBackend-main/subscriptions-service/pom.xml" />
       </list>
     </option>
   </component>

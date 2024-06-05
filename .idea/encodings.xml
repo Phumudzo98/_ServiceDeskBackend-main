@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/account-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/api-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/billing-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/chat-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/config-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/discovery-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/package-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/subscribe-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/subscriptions-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/ticket-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/_ServiceDeskBackend-main/users-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

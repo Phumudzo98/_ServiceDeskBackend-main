@@ -295,6 +295,7 @@ public class UserService {
                 "The Service Desk team";
     }
 
+
     public UserData userData(UUID companyId){
         List<UserAccount> userAccount = userAccountRepository.findByCompanyId(companyId);
         List<AgentAccount> agentAccounts = agentAccountRepository.findByCompanyId(companyId);
