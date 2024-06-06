@@ -317,6 +317,7 @@ public class UserService {
             throw new EntityNotFoundException("Agent with email " + email + " not found.");
         }
     }
+
 public void updateUserStatus(String email,String statusAgent){
     Optional<UserAccount> optionalUserAccount = userAccountRepository.findByEmail(email);
         if (optionalUserAccount.isPresent()) {

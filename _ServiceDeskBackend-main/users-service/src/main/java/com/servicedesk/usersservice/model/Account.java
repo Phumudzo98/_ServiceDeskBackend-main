@@ -43,4 +43,5 @@ public class Account implements Serializable {
     private String statusAgent;
     @Lob
     private Blob image;
+
 }

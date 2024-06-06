@@ -39,4 +39,8 @@ public class Administrator implements Serializable {
     private Company company;
     @Lob
     private Blob image;
+    @Column(name = "profileChange", nullable = false)
+    private String profileChange;
+    @Column(name = "PasswordChange", nullable = false)
+    private String PasswordChange;
 }

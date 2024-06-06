@@ -13,16 +13,14 @@ import com.servicedesk.usersservice.repository.company.AdministratorRepository;
 import com.servicedesk.usersservice.repository.company.CompanyRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -75,6 +73,7 @@ public class CompanyService {
         if(companyRepository.findById(UUID.fromString(companyId)).isPresent() &&
                 administratorRepository.findByEmail(signupRequest.getEmail()).isEmpty()){
             Company company = companyRepository.findById(UUID.fromString(companyId)).get();
+
             Administrator administrator = Administrator.builder()
                     .fullName(signupRequest.getFullName())
                     .email(signupRequest.getEmail())
@@ -87,6 +86,8 @@ public class CompanyService {
             // Set the default profile picture for the user
             Blob defaultProfilePicture = loadDefaultProfilePictureBlob();
             administrator.setImage(defaultProfilePicture);
+            administrator.setProfileChange("On");
+            administrator.setPasswordChange("On");
             administratorRepository.save(administrator);
             String content = setContent(administrator.getFullName(), administrator.getEmail(), signupRequest.getPassword());
             boolean isSent = sendEmailService.sendEmail(administrator.getEmail(), "Admin Account Created",content);
@@ -96,7 +97,30 @@ public class CompanyService {
         }
         return false;
     }
+    public void updatePassChangeNoti(String email, String passwordChange){
+        Optional<Administrator> optionalAdministrator=administratorRepository.findByEmail(email);
 
+        if(optionalAdministrator.isPresent()){
+            Administrator administrator=optionalAdministrator.get();
+            administrator.setPasswordChange(passwordChange);
+            administratorRepository.save(administrator);
+        }else {
+            // Handle case where Administrator with the given email is not found
+            throw new EntityNotFoundException("Administrator with email " + email + " not found.");
+        }
+    }
+    public void updateProfileChangeNoti(String email, String profileChange){
+        Optional<Administrator> optionalAdministrator=administratorRepository.findByEmail(email);
+
+        if(optionalAdministrator.isPresent()){
+            Administrator administrator=optionalAdministrator.get();
+            administrator.setProfileChange(profileChange);
+            administratorRepository.save(administrator);
+        }else {
+            // Handle case where Administrator with the given email is not found
+            throw new EntityNotFoundException("Administrator with email " + email + " not found.");
+        }
+    }
     public List<AdministratorResponse> getCompanyAdmins(UUID companyId){
         List<Administrator> administrators = administratorRepository.findByCompanyId(companyId);
         return  administrators.stream().map(this::mapToAdministrator).toList();

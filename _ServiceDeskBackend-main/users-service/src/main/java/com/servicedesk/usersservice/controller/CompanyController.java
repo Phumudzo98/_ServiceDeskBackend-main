@@ -100,7 +100,12 @@ public class CompanyController {
         String hashedPassword = passwordEncoder.encode(newPassword);
         administrator.setPassword(hashedPassword);
         administratorRepository.save(administrator);
-        authService.setContentForUpdatePasswordNotififaction(administratorOptional .get());
+
+        //If the Admin choose  to receive the email update email
+        if("On".equalsIgnoreCase(administratorOptional.get().getPasswordChange())){
+            authService.setContentForUpdatePasswordNotififaction(administratorOptional .get());
+        }
+
         return ResponseEntity.ok().body("{\"message\": \"Password changed successfully\"}");
     }
 
@@ -162,7 +167,13 @@ public class CompanyController {
 
             // Call the service method to update the profile
             ResponseEntity<Map<String, String>> responseEntity = companyService.updateProfile(fullName, lastName, email, position,profileImageBlob);
-             authService.setContentForUpdateProfileNotififaction(administratorOptional.get());
+
+            //If the Admin choose  to receive the email update email
+            if("On".equalsIgnoreCase(administratorOptional.get().getProfileChange())){
+                authService.setContentForUpdateProfileNotififaction(administratorOptional.get());
+            }
+
+
             // Return the response entity from the service method
             return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
 
@@ -171,5 +182,21 @@ public class CompanyController {
             return ResponseEntity.badRequest().body("Failed to update profile: " + e.getMessage());
         }
     }
+    @PostMapping(value = "/UpdateChangePassword", produces = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Object> UpdateChangePassword(@RequestBody Administrator UpdateChangePassword){
+        String email = UpdateChangePassword.getEmail();
+        String PasswordChange = UpdateChangePassword.getPasswordChange();
 
+         companyService.updatePassChangeNoti(email,PasswordChange);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/UpdateChangeProfile", produces = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Object> UpdateChangeProfile(@RequestBody Administrator UpdateChangePassword){
+        String email = UpdateChangePassword.getEmail();
+        String profileChange = UpdateChangePassword.getProfileChange();
+
+        companyService.updateProfileChangeNoti(email,profileChange);
+        return ResponseEntity.ok().build();
+    }
 }
